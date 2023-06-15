@@ -20,3 +20,7 @@ Asset sources:
 Code sources:
 - `adventure.js` and `index.html` were created for this project [Adam Smith](https://github.com/rndmcnlly) and edited by me.
 - `game.js` was sketched by [Adam Smith](https://github.com/rndmcnlly) and rewritten by me.
+
+
+All backgrounds were created by me in Krita.
+All emojis were found on https://emojipedia.org/
