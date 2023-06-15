@@ -1,94 +1,209 @@
-class Demo1 extends AdventureScene {
+class scene0 extends AdventureScene {
     constructor() {
-        super("demo1", "First Room");
+        super("s0", "Front Door");
+    }
+
+    preload(){
+        this.load.path = './assets/';
+        this.load.image('front', 'front.png');
     }
 
     onEnter() {
-
-        let clip = this.add.text(this.w * 0.3, this.w * 0.3, "📎 paperclip")
-            .setFontSize(this.s * 2)
-            .setInteractive()
-            .on('pointerover', () => this.showMessage("Metal, bent."))
-            .on('pointerdown', () => {
-                this.showMessage("No touching!");
-                this.tweens.add({
-                    targets: clip,
-                    x: '+=' + this.s,
-                    repeat: 2,
-                    yoyo: true,
-                    ease: 'Sine.inOut',
-                    duration: 100
-                });
-            });
-
-        let key = this.add.text(this.w * 0.5, this.w * 0.1, "🔑 key")
-            .setFontSize(this.s * 2)
-            .setInteractive()
-            .on('pointerover', () => {
-                this.showMessage("It's a nice key.")
-            })
-            .on('pointerdown', () => {
-                this.showMessage("You pick up the key.");
-                this.gainItem('key');
-                this.tweens.add({
-                    targets: key,
-                    y: `-=${2 * this.s}`,
-                    alpha: { from: 1, to: 0 },
-                    duration: 500,
-                    onComplete: () => key.destroy()
-                });
-            })
-
-        let door = this.add.text(this.w * 0.1, this.w * 0.15, "🚪 locked door")
+        this.showMessage("You find yourself trapped inside someone's house.");
+        this.add.image(400, 300, 'front');
+        let handle = this.add.text(120, 320, "🟡")
             .setFontSize(this.s * 2)
             .setInteractive()
             .on('pointerover', () => {
                 if (this.hasItem("key")) {
-                    this.showMessage("You've got the key for this door.");
+                    this.showMessage("You have the key!");
                 } else {
-                    this.showMessage("It's locked. Can you find a key?");
+                    this.showMessage("It's locked from the outside.");
                 }
             })
             .on('pointerdown', () => {
                 if (this.hasItem("key")) {
                     this.loseItem("key");
-                    this.showMessage("*squeak*");
-                    door.setText("🚪 unlocked door");
-                    this.gotoScene('demo2');
+                    this.showMessage("*click*");
+                    this.gotoScene('good');
                 }
             })
+        let peep = this.add.text(75, 200, "⚫")
+            .setFontSize(this.s * .5)
+            .setInteractive()
+            .on('pointerover', () => {
+                this.showMessage("Looks like there isnt anyone to open the door for me from the outside…");
+            })
 
+        let hallwayDoor = this.add.text(660, 200, "⚫")
+            .setFontSize(this.s * 5)
+            .setInteractive()
+            .on('pointerdown', () => {
+                this.gotoScene('s1');
+            })
+            .on('pointerover', () => {
+                this.showMessage("Looks like this leads to the hallway...");
+            })
     }
 }
 
-class Demo2 extends AdventureScene {
+class scene1 extends AdventureScene {
     constructor() {
-        super("demo2", "The second room has a long name (it truly does).");
+        super("s1", "Hallway");
+    }
+    preload(){
+        this.load.path = './assets/';
+        this.load.image('hall', 'hall.png');
+    }
+
+    onEnter() {
+        this.add.image(400, 300, 'hall');
+        let frontDoor = this.add.text(25, 400, "⚫")
+            .setFontSize(this.s * 5)
+            .setInteractive()
+            .on('pointerdown', () => {
+                this.gotoScene('s0');
+            })
+            .on('pointerover', () => {
+                this.showMessage("Looks like this leads back to the front...");
+            })
+
+        let kitchenDoor = this.add.text(725, 400, "⚫")
+            .setFontSize(this.s * 5)
+            .setInteractive()
+            .on('pointerdown', () => {
+                this.gotoScene('s2');
+            })
+            .on('pointerover', () => {
+                this.showMessage("Looks like this leads to the kitchen...");
+            })
+    }
+    
+}
+class scene2 extends AdventureScene {
+    constructor() {
+        super("s2", "Kitchen");
+    }
+    preload(){
+        this.load.path = './assets/';
+        this.load.image('kitchen', 'kitchen.png');
     }
     onEnter() {
-        this.add.text(this.w * 0.3, this.w * 0.4, "just go back")
-            .setFontSize(this.s * 2)
+        this.add.image(400, 300, 'kitchen');
+
+        let knife = this.add.text(500, 220, "🔪")
+            .setFontSize(this.s * 4)
             .setInteractive()
             .on('pointerover', () => {
-                this.showMessage("You've got no other choice, really.");
+                this.showMessage("That seems like it should be put away…");
             })
             .on('pointerdown', () => {
-                this.gotoScene('demo1');
-            });
+                this.showMessage("I shouldnt walk around in someones house with a knife…");
+            })
 
-        let finish = this.add.text(this.w * 0.6, this.w * 0.2, '(finish the game)')
+        let apple = this.add.text(450, 225, "🍎")
+            .setFontSize(this.s * 4)
             .setInteractive()
             .on('pointerover', () => {
-                this.showMessage('*giggles*');
-                this.tweens.add({
-                    targets: finish,
-                    x: this.s + (this.h - 2 * this.s) * Math.random(),
-                    y: this.s + (this.h - 2 * this.s) * Math.random(),
-                    ease: 'Sine.inOut',
-                    duration: 500
-                });
+                this.showMessage("An apple a day keeps the doctor away!");
             })
-            .on('pointerdown', () => this.gotoScene('outro'));
+            .on('pointerdown', () => {
+                this.showMessage("I shouldn’t be touching their food!");
+            })
+
+        let basementDoor = this.add.text(320, 100, "⚫")
+            .setFontSize(this.s * 5)
+            .setInteractive()
+            .on('pointerdown', () => {
+                this.gotoScene('bad');
+            })
+            .on('pointerover', () => {
+                this.showMessage("Looks like this leads to the basement...");
+            })
+        
+            let hallwayDoor = this.add.text(20, 150, "⚫")
+            .setFontSize(this.s * 5)
+            .setInteractive()
+            .on('pointerdown', () => {
+                this.gotoScene('s1');
+            })
+            .on('pointerover', () => {
+                this.showMessage("Looks like this leads to the hallway...");
+            })
+
+            let livingRoomDoor = this.add.text(725, 550, "⚫")
+            .setFontSize(this.s * 5)
+            .setInteractive()
+            .on('pointerdown', () => {
+                this.gotoScene('s3');
+            })
+            .on('pointerover', () => {
+                this.showMessage("Looks like this leads to the living room...");
+            })
+    }
+}
+class scene3 extends AdventureScene {
+    constructor() {
+        super("s3", "Living Room");
+    }
+    preload(){
+        this.load.path = './assets/';
+        this.load.image('living', 'living room.png');
+    }
+    onEnter() {
+        this.add.image(400, 300, 'living');
+
+        let kitchenDoor = this.add.text(25, 275, "⚫")
+        .setFontSize(this.s * 5)
+        .setInteractive()
+        .on('pointerdown', () => {
+            this.gotoScene('s2');
+        })
+        .on('pointerover', () => {
+            this.showMessage("Looks like this leads to the kitchen...");
+        })
+
+        let doorKey = this.add.text(600, 345, "🔑")
+        .setFontSize(this.s * 2)
+        .setInteractive()
+        .on('pointerdown', () => {
+            this.gainItem('key');
+            this.showMessage("You picked up the key!");
+            doorKey.destroy();
+        })
+        .on('pointerover', () => {
+            this.showMessage("Looks like this might open the front door!");
+        })
+    }
+}
+class goodEnding extends AdventureScene {
+    constructor() {
+        super("good");
+    }
+    preload(){
+        this.load.path = './assets/';
+        this.load.image('outside', 'outside.png');
+    }
+    onEnter() {
+        this.add.image(400, 300, 'outside');
+        this.showMessage("You win! Click any button to restart!");
+        this.input.on('pointerdown', () => this.scene.start('intro'));
+
+    }
+}
+class badEnding extends AdventureScene {
+    constructor() {
+        super("bad");
+    }
+    preload(){
+        this.load.path = './assets/';
+        this.load.image('basement', 'basement.png');
+    }
+    onEnter() {
+        this.add.image(400, 300, 'basement');
+        this.showMessage("You lost! Click any button to restart!");
+        this.input.on('pointerdown', () => this.scene.start('intro'));
+
     }
 }
 
@@ -97,11 +212,12 @@ class Intro extends Phaser.Scene {
         super('intro')
     }
     create() {
-        this.add.text(50,50, "Adventure awaits!").setFontSize(50);
-        this.add.text(50,100, "Click anywhere to begin.").setFontSize(20);
+        this.add.text(250,300, "Click anywhere to begin.").setFontSize(20);
         this.input.on('pointerdown', () => {
-            this.cameras.main.fade(1000, 0,0,0);
-            this.time.delayedCall(1000, () => this.scene.start('demo1'));
+            //this.cameras.main.fade(1000, 0,0,0);
+            // this.time.delayedCall(1000, () => 
+            this.scene.start('s0');
+            this.loseItem('key');
         });
     }
 }
@@ -122,10 +238,10 @@ const game = new Phaser.Game({
     scale: {
         mode: Phaser.Scale.FIT,
         autoCenter: Phaser.Scale.CENTER_BOTH,
-        width: 1920,
-        height: 1080
+        width: 800,
+        height: 700
     },
-    scene: [Intro, Demo1, Demo2, Outro],
+    scene: [Intro, scene0, scene1, scene2, scene3, goodEnding, badEnding, Outro],
     title: "Adventure Game",
 });
 

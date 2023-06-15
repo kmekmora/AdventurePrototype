@@ -19,20 +19,20 @@ class AdventureScene extends Phaser.Scene {
         this.cameras.main.setBackgroundColor('#444');
         this.cameras.main.fadeIn(this.transitionDuration, 0, 0, 0);
 
-        this.add.rectangle(this.w * 0.75, 0, this.w * 0.25, this.h).setOrigin(0, 0).setFillStyle(0);
-        this.add.text(this.w * 0.75 + this.s, this.s)
-            .setText(this.name)
-            .setStyle({ fontSize: `${3 * this.s}px` })
-            .setWordWrapWidth(this.w * 0.25 - 2 * this.s);
+        // this.add.rectangle(this.w * 0.75, 0, this.w * 0.25, this.h).setOrigin(0, 0).setFillStyle(0);
+        // this.add.text(this.w * 0.75 + this.s, this.s)
+        //     .setText(this.name)
+        //     .setStyle({ fontSize: `${3 * this.s}px` })
+        //     .setWordWrapWidth(this.w * 0.25 - 2 * this.s);
         
-        this.messageBox = this.add.text(this.w * 0.75 + this.s, this.h * 0.33)
+        this.messageBox = this.add.text(350, 625)
             .setStyle({ fontSize: `${2 * this.s}px`, color: '#eea' })
             .setWordWrapWidth(this.w * 0.25 - 2 * this.s);
 
-        this.inventoryBanner = this.add.text(this.w * 0.75 + this.s, this.h * 0.66)
-            .setStyle({ fontSize: `${2 * this.s}px` })
-            .setText("Inventory")
-            .setAlpha(0);
+        // this.inventoryBanner = this.add.text(this.w * 0.75 + this.s, this.h * 0.66)
+        //     .setStyle({ fontSize: `${2 * this.s}px` })
+        //     .setText("Inventory")
+        //     .setAlpha(0);
 
         this.inventoryTexts = [];
         this.updateInventory();
@@ -102,17 +102,17 @@ class AdventureScene extends Phaser.Scene {
         }
         this.inventory.push(item);
         this.updateInventory();
-        for (let text of this.inventoryTexts) {
-            if (text.text == item) {
-                this.tweens.add({
-                    targets: text,
-                    x: { from: text.x - 20, to: text.x },
-                    alpha: { from: 0, to: 1 },
-                    ease: 'Cubic.out',
-                    duration: this.transitionDuration
-                });
-            }
-        }
+        // for (let text of this.inventoryTexts) {
+        //     if (text.text == item) {
+        //         this.tweens.add({
+        //             targets: text,
+        //             x: { from: text.x - 20, to: text.x },
+        //             alpha: { from: 0, to: 1 },
+        //             ease: 'Cubic.out',
+        //             duration: this.transitionDuration
+        //         });
+        //     }
+        // }
     }
 
     loseItem(item) {
