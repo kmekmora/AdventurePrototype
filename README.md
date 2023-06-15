@@ -15,12 +15,11 @@ Experience requirements:
 - **Some objects are themselves animated**: no animations (describe two examples)
 
 Asset sources:
-- (For each image/audio/video asset used, describe how it was created. What tool did you use to create it? Was it based on another work? If so, how did you change it, and where can we learn more about the original work for comparison? Use [Markdown link syntax](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax#links).)
+- All backgrounds were created by me in Krita.
+- All emojis were found on https://emojipedia.org/
 
 Code sources:
 - `adventure.js` and `index.html` were created for this project [Adam Smith](https://github.com/rndmcnlly) and edited by me.
 - `game.js` was sketched by [Adam Smith](https://github.com/rndmcnlly) and rewritten by me.
 
 
-All backgrounds were created by me in Krita.
-All emojis were found on https://emojipedia.org/
